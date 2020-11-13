@@ -1,10 +1,27 @@
 .App {
-  text-align: center;
+  /* border:solid green; */
+  margin: 0 2.5%;
+  padding: 1% 2.5%;
 }
+.card-home {
+  display: flex;
+  justify-content: space-between;
+  /* flex-direction: row !important; */
+}
+.card-home div {width:50%}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navs {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+ font-size: 1.2rem;
+ font-weight: 500;
+ background: #29200b2d;
+}
+.navs a {
+  padding: 1% 2%;
+  color: white;
+  text-decoration: none
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -35,4 +52,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.recipe-card {
+  border: solid green
 }
