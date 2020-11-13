@@ -1,14 +1,22 @@
 
-
+export const REGISTER  = 'REGISTER'
 export const SIGN_IN = 'SIGN_IN';
 export const SUCCESS_LOGIN = 'SUCCESS_LOGIN';
-export const ADD_RECIPES = 'ADD_RECIPES';
-export const EDIT_RECIPES = 'EDIT_RECIPES';
-export const DELETE_RECIPES = 'DELETE_RECIPES';
+export const FETCHING_RECIPES = 'FETCHING_RECIPES';
+export const GET_RECIPES = 'GET_RECIPES';
+export const ADD_RECIPE = 'ADD_RECIPE';
+export const EDIT_RECIPE = 'EDIT_RECIPE';
+export const DELETE_RECIPE = 'DELETE_RECIPE';
 
 
 export const initialState = {
-    user:{username:'',password:''},
+    registerUser:{
+        name:'',
+        email:'',
+        username:'',
+        password:''
+    },
+    loginUser:{username:'',password:''},
     recipe:{
         title:'hot Pizza',
         source:'Grandma',
@@ -19,24 +27,35 @@ export const initialState = {
     recipes:[],
     editing:false,
     isLoggedIn: false,
-    logging: ''
+    logging: '',
+    fetching: ''
     
 }
 
 const myReducer =(state=initialState,action)=>{
 
     switch(action.type){
+        case REGISTER: 
+            return{...state,registerUser:action.payload,id:Date.now()} //assigning an id to each user
         case SIGN_IN: 
-            return{...state,user:action.payload,logging:'logging ...'}
+            return{...state,loginUser:action.payload,logging:'logging ...'}
         case SUCCESS_LOGIN: 
             return{...state,isLoggedIn:true}
        
-        case ADD_RECIPES:
-            return {...state,recipe: action.payload}
-        // case EDIT_RECIPES:
-        //     return {...state,recipes:state.recipes.map(el=>{})}
-        // case DELETE_RECIPES:
-        //     return{...state,recipes:state.recipes.map(el=>{})}
+        case ADD_RECIPE:
+            return {...state,recipes: [...state.recipes,action.payload]}
+        case FETCHING_RECIPES:
+            return {...state,fetching: 'fetching ...'}
+        case GET_RECIPES:
+            return {...state,recipes:[...state.recipes,action.payload]}
+        case EDIT_RECIPE:
+            return {...state,recipes:state.recipes.map(el=>{
+
+            })}
+        case DELETE_RECIPE:
+            return{...state,recipes:state.recipes.map(el=>{
+
+            })}
         default:
             return state;
     }
