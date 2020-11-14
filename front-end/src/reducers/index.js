@@ -17,14 +17,14 @@ export const initialState = {
         password:''
     },
     loginUser:{username:'',password:''},
-    recipe:{
+    recipe:{},
+    recipes:[{
         title:'hot Pizza',
         source:'Grandma',
         ingredients:'one tea spoon of each the following',
         instructions:'step by step',
         category:'spicy food'
-    },
-    recipes:[],
+    },],
     editing:false,
     isLoggedIn: false,
     logging: '',
