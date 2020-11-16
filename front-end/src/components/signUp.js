@@ -11,8 +11,9 @@ const Signup = ()=>{
     let {push}= useHistory();
 
     const handleChanges= e=>{
+        let value = e.target.type==='checkbox'?e.target.checked : e.target.value
         e.preventDefault();
-        setUser({...user,[e.target.name]:e.target.value})
+        setUser({...user,[e.target.name]:value})
         console.log('Sign Up info',user)
     
     }
@@ -37,6 +38,7 @@ const Signup = ()=>{
                 <input type='email' name='email' value={user.email} placeholder='Email' onChange={handleChanges}/>
                 <input type='text' name='username' value={user.username} placeholder='User Name' onChange={handleChanges}/>
                 <input type='password' name='password' value={user.password} placeholder='Password' onChange={handleChanges}/>
+                <input type='checkbox' name='terms' checked={user.terms}  onChange={handleChanges}/>
                
                 <button>Sign Up</button>
 

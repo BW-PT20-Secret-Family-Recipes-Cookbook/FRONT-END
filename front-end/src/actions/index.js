@@ -39,9 +39,11 @@ export const login = (loginUser)=>(dispatch)=>{
     axiosWithAuth()
     .post('baseUrl/login', loginUser)
     .then(res=>{
-        console.log('res.data in login actions ', res.data)
-        localStorage.setItem('token',res.data.token)
-        dispatch({type:SUCCESS_LOGIN})
+        dispatch({type:SUCCESS_LOGIN});
+        console.log('res.data in login actions ', res.data);
+        localStorage.setItem('token',res.data.token);
+        localStorage.setItem('id',res.data.id);
+        
 
     })
     .catch(err=>{

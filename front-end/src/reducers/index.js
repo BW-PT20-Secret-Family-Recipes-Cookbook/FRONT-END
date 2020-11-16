@@ -14,11 +14,13 @@ export const initialState = {
         name:'',
         email:'',
         username:'',
-        password:''
+        password:'',
+        terms:false
     },
     loginUser:{username:'',password:''},
     recipe:{},
     recipes:[{
+        id:1,
         title:'hot Pizza',
         source:'Grandma',
         ingredients:'one tea spoon of each the following',

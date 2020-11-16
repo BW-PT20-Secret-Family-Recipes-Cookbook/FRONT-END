@@ -3,6 +3,14 @@
   margin: 0 2.5%;
   padding: 1% 2.5%;
 }
+#search-input{
+  height:1.5rem;
+  display:flex;
+  align-items: center;
+  margin-top:1rem
+  
+
+}
 .card-home {
   display: flex;
   justify-content: space-between;
@@ -11,6 +19,7 @@
 .card-home div {width:50%}
 
 .navs {
+ 
   display: flex;
   justify-content: space-evenly;
   width: 100%;
@@ -21,7 +30,8 @@
 .navs a {
   padding: 1% 2%;
   color: white;
-  text-decoration: none
+  text-decoration: none;
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
