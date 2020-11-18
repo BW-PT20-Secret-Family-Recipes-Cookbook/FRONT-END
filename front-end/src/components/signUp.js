@@ -32,13 +32,13 @@ const Signup = ()=>{
         <div>
           
             <h2>Please Sign Up </h2>
-            <form onSubmit={handleSubmit}>
+            <form className='form' onSubmit={handleSubmit}>
                 {/* <label>Title</label> */} 
                  <input type='text' name='name' value={user.name} placeholder='Name' onChange={handleChanges}/>
                 <input type='email' name='email' value={user.email} placeholder='Email' onChange={handleChanges}/>
                 <input type='text' name='username' value={user.username} placeholder='User Name' onChange={handleChanges}/>
                 <input type='password' name='password' value={user.password} placeholder='Password' onChange={handleChanges}/>
-                <input type='checkbox' name='terms' checked={user.terms}  onChange={handleChanges}/>
+               
                
                 <button>Sign Up</button>
 

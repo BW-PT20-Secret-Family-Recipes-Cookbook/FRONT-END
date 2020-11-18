@@ -1,25 +1,36 @@
 
-import {REGISTER} from '../reducers';
-import {SIGN_IN} from '../reducers';
-import {FETCHING_RECIPES} from '../reducers';
-import {SUCCESS_LOGIN} from '../reducers'
-import {GET_RECIPES} from '../reducers'
-import {ADD_RECIPE} from '../reducers';
-import {EDIT_RECIPES} from '../reducers';
-import {DELETE_RECIPES} from '../reducers';
+import {
+    
+    REGISTER_START,
+    LOGIN_START,
+    LOGIN_SUCCESS,
+    REGISTER_SUCCESS,
+    EDIT_RECIPE,
+    FETCHING_RECIPES_START,
+    FETCHING_RECIPES_SUCCESS,
+    SELECTED_RECIPE,
+    GET_RECIPES,
+    ADD_RECIPE,
+    DELETE_RECIPE,
+    SEARCH
+} from '../reducers';
+
 
 import axiosWithAuth from '../utils/axiosWithAuth'
-import {useHistory} from 'react-router-dom'
+
 
 
 //Sign Up page
 export const register = (registerUser)=>(dispatch)=>{
 
-    dispatch({type:REGISTER,payload: registerUser});
+    dispatch({type:REGISTER_START});
 
     axiosWithAuth()
-    .post('baseUrl/login', registerUser)
+    .post('https://team-family-recipes.herokuapp.com/api/register', registerUser)
     .then(res=>{
+        dispatch({type:REGISTER_SUCCESS});
+
+        localStorage.setItem("token", res.data.token)
 
         console.log('res.data in register actions ', res.data)
       
@@ -34,15 +45,16 @@ export const register = (registerUser)=>(dispatch)=>{
 //loggin page
 export const login = (loginUser)=>(dispatch)=>{
 
-    dispatch({type:SIGN_IN,payload: loginUser});
+    dispatch({type:LOGIN_START});
 
     axiosWithAuth()
-    .post('baseUrl/login', loginUser)
+    .post('https://team-family-recipes.herokuapp.com/api/login', loginUser)
     .then(res=>{
-        dispatch({type:SUCCESS_LOGIN});
+        
         console.log('res.data in login actions ', res.data);
         localStorage.setItem('token',res.data.token);
-        localStorage.setItem('id',res.data.id);
+        localStorage.setItem('id',res.data.id); 
+        dispatch({type:LOGIN_SUCCESS,payload:res.data});
         
 
     })
@@ -55,16 +67,32 @@ export const login = (loginUser)=>(dispatch)=>{
 
 export const getRecipes = ()=>dispatch=>{
 
-    dispatch({type: FETCHING_RECIPES})
+    dispatch({type: FETCHING_RECIPES_START})
     axiosWithAuth()
-    .get(`baseUrl/recipes`)
+    .get(`https://team-family-recipes.herokuapp.com/api/recipe`)
     .then(res=>{
-        console.log(res.data);
-        dispatch({type: GET_RECIPES, payload:res.data})
+        console.log('recipes fetched in get',res.data);
+
+        dispatch({type:FETCHING_RECIPES_SUCCESS, payload:res.data})
     })
     .catch(err=>{
         console.log(err)
     })
+}
+
+//Fetch single recipe based on ID
+
+export const getMyRecipe=id=>dispatch=>{
+    axiosWithAuth()
+    .get(`baseUrl/recipes/${id}`)
+    .then(res=>{
+        console.log(res.data);
+        dispatch({type: SELECTED_RECIPE, payload:res.data})
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+
 }
 
 
@@ -74,7 +102,7 @@ export const addRecipe = (recipe)=>dispatch=>{
 
     
     axiosWithAuth()
-    .post(`baseUrl/recipes/${recipe.id}`,recipe)
+    .post(`/recipes`,recipe)
     .then(res=>{
         console.log('res.data in add recipe ',res.data)
         dispatch({type: ADD_RECIPE,payload:res.data})
@@ -86,13 +114,13 @@ export const addRecipe = (recipe)=>dispatch=>{
     })
 }
 
-//EDIT A RECIPE
+//Edit a recipe
 export const editRecipe = id=>dispatch=>{
-
+    
     axiosWithAuth()
-    .put(`baseUrl/recipes/${id}`)
+    .put(`/recipes/${id}`)
     .then(res=>{
-
+        dispatch({type:EDIT_RECIPE, payload:res.data})
     })
     .catch(err=>{
         console.log(err)
@@ -103,12 +131,18 @@ export const editRecipe = id=>dispatch=>{
 export const deleteRecipe = id=>dispatch=>{
 
     axiosWithAuth()
-    .delete(`baseUrl/recipes/${id}`)
+    .delete(`/recipes/${id}`)
     .then(res=>{
 
     })
     .catch(err=>{
         console.log(err)
     })
+}
+
+//SEARCH
+export const search = term=>dispatch=>{
+    console.log('term searched ',term)
+    dispatch({type:SEARCH,payload:term})
 }
 

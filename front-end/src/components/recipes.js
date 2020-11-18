@@ -1,5 +1,6 @@
-import React,{useContext} from 'react'
+import React,{useContext,useState,useEffect} from 'react'
 import {Link,Route,useParams,useHistory} from 'react-router-dom'
+import {getRecipes, search} from '../actions'
 
 //components
 import RecipeCard from './recipeCard'
@@ -10,19 +11,26 @@ import {GlobalContext} from '../globalContext/context'
 
 const Recipes = ()=>{
     // let user = {usename:'simo',password:'123546'}
-  
     let recipes = useContext(GlobalContext).state.recipes;  
+    let searchOn = useContext(GlobalContext).state.searchOn
+    let filtered = useContext(GlobalContext).state.filteredREcipes
+    
+  
+    
     let logging = useContext(GlobalContext).state.isLoggedIn;
 
     let {push}= useHistory();
-    let id = useParams();
+    let params = useParams();
 
    //let' find the active card
-   let activeCard = recipes.find(item=>item.id===id)
+//    let activeCard = recipes.find(item=>item.id===id.id)
 
-   console.log('activeCard ',id)
+ 
+ 
 
-        console.log('context in recipes ',useContext(GlobalContext))
+        console.log('searchOn ',searchOn)
+        console.log('filtered ',filtered)
+
 
     return(
        
@@ -30,21 +38,28 @@ const Recipes = ()=>{
              <RecipeForm />
         
             <div className='recipes-list'>
-            <h1>List Of Recipes </h1>
+            
             {recipes.map(recipe=>{
 
                 return ( <div className='recipe-card'>
+              
                     <Link to={`/recipes/${recipe.id}`}>
+                         
+                        
                             <h2>Title: {recipe.title}</h2>
                             <p>Source: {recipe.source}</p>
                             <p>Ingredients: {recipe.ingredients}</p>
                             <p>Instructions: {recipe.instructions}</p>
                             <p>Category: {recipe.category}</p>
+                          
                     </Link>
+                  
                         </div>
                 )
             })}
             
+            
+          
                     
       
             </div>

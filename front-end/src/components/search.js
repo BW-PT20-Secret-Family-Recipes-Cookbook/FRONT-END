@@ -1,15 +1,26 @@
-import React,{useState} from 'react'
+import React,{useState,useContext, useEffect} from 'react'
+import {GlobalContext} from  '../globalContext/context'
+import {search} from '../actions'
 
 
-const SearchForm = ()=>{
+const SearchForm = (recipes,filteredREcipes)=>{
 
+
+   console.log('recipes in search',recipes)
     const[searchTerm,setSearchTerm] = useState('')
+    
+  
     const handleChanges = e=>{
         e.preventDefault();
-        setSearchTerm({...searchTerm,[e.target.name]:e.target.value})
-        console.log(searchTerm)
-
+        setSearchTerm(e.target.value)
+        console.log('search values  ', searchTerm)
+  
     }
+    useEffect(()=>{
+
+        search(searchTerm)
+    },[searchTerm.length>0])
+   
 
     return(
         <form>

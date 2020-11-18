@@ -18,14 +18,18 @@ const handleChanges= e=>{
 
 }
  //reset the form
-    // setLoginUser({
-    //     username:'',
-    //     password:''
-    // })
+ const reset=()=>{
+    setLoginUser({
+        username:'',
+        password:''
+    })
+ }
+    
     const handleSubmit = e=>{
         login(loginUser);
 
         push('/recipes')
+        reset();
     }
 
 
@@ -33,7 +37,7 @@ const handleChanges= e=>{
         <div>
              <div>
             <h2>Please Login </h2>
-            <form onSubmit={handleSubmit}>
+            <form className='form' onSubmit={handleSubmit}>
                 {/* <label>Title</label> */}
                 <input type='text' name='username' value={loginUser.username} placeholder='User Name' onChange={handleChanges}/>
                 <input type='password' name='password' value={loginUser.password} placeholder='Password' onChange={handleChanges}/>

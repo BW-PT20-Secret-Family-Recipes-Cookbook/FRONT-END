@@ -1,6 +1,6 @@
 import {useContext,useReducer} from 'react'
 import './App.css';
-import {Route,Link,useHistory} from 'react-router-dom'
+import {Route,Link,useHistory, useParams} from 'react-router-dom'
 import {Card,CardImg} from 'reactstrap'
 import image from './images/recipe2.jpg'
 
@@ -9,6 +9,7 @@ import Recipes from './components/recipes'
 import Signup from './components/signUp'
 import Login from './components/login'
 import SearchForm from './components/search'
+import RecipeForm from './components/recipeForm'
 
 // import utilities
 import myReducer from './reducers'
@@ -17,12 +18,16 @@ import {GlobalContext} from './globalContext/context'
 import {initialState} from './reducers'
 import PrivateRoute from './utils/privateRoute';
 import RecipeCard from './components/recipeCard';
+import { findAllByAltText } from '@testing-library/react';
 
 
 
 function App() {
+  
 
-  const[state,dispatchState] = useReducer(myReducer,initialState)
+  const[state,dispatch] = useReducer(myReducer,initialState)
+  console.log(state.editing)
+
 let {push} = useHistory();
   return (
     <div className="App">
@@ -32,7 +37,7 @@ let {push} = useHistory();
       {!state.isLoggedIn ? <Link to='/login'>Log In</Link> : <button onClick={()=>{localStorage.setItem('token',''); state.isLoggedIn =false; push('/login')}}> Log Out </button>} 
       {!state.isLoggedIn ? <Link to ='/signUp'>Sign Up</Link>: null} {/* hide signup button if I am logged in*/}
        <Link to = '/recipes'>Recipes</Link>
-      <SearchForm/>
+      <SearchForm recipes={state.recipes}filteredRecipes ={state.filteredRecipes}/>
      </div>
   
   <Route  exact path='/' >
@@ -47,11 +52,13 @@ let {push} = useHistory();
     </Card>
    </Route>
 
-   <GlobalContext.Provider value={{state,dispatchState}}>
+   <GlobalContext.Provider value={{state,dispatch}}>
      <Route exact path='/login' render={()=><Login/>}/>
      <Route path='/signup' render={()=><Signup/>}/>
      <PrivateRoute exact path='/recipes' component = {Recipes}/>
-      <Route path={`/recipes/:id`}> <RecipeCard recipe={state.recipe}/></Route>
+     <Route path={`/recipes/:id`}> <RecipeCard /></Route>
+     <Route path={'/updateRecipe/:id'}><RecipeForm /></Route>
+     {/* <Route path='/recipes' component={SearchForm}/> */}
    </GlobalContext.Provider>
 
  
