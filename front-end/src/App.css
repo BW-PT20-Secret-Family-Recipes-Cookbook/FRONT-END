@@ -3,6 +3,7 @@
   margin: 0 2.5%;
   padding: 1% 2.5%;
 }
+
 .card-home {
   display: flex;
   justify-content: space-between;
@@ -11,9 +12,11 @@
 .card-home div {width:50%}
 
 .navs {
+ 
   display: flex;
   justify-content: space-evenly;
   width: 100%;
+  align-items:center;
  font-size: 1.2rem;
  font-weight: 500;
  background: #29200b2d;
@@ -21,7 +24,8 @@
 .navs a {
   padding: 1% 2%;
   color: white;
-  text-decoration: none
+  text-decoration: none;
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -55,5 +59,32 @@
 }
 
 .recipe-card {
-  border: solid green
+  border: 1px solid rgb(198, 207, 198);
+  width: 44%;
+  margin : 1.5%;
+  padding: 1%;
+  border-radius : 10px
+}
+.recipes-list{
+
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2.5%;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin: 1% 35%;
+  font-size:1.2rem
+}
+.form button {
+  width: 30%;
+  padding: 1.5%;
+  margin: 1% 25%;
+font-size: 1.3rem;
+}
+.form input{
+  height: 4vh;
+  margin: 1% 0;
 }

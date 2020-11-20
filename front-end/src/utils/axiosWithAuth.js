@@ -4,7 +4,7 @@ const axiosWithAuth = ()=>{
     const token = localStorage.getItem('token')
 
     return axios.create({
-        baseUrl: 'http://localhost:3000/',
+        baseUrl: 'https://bwpt20-recipes-backend.herokuapp.com',
         headers:{Authorization:token}
     })
 }

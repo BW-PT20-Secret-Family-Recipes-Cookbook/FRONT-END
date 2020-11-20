@@ -1,43 +1,56 @@
 import React,{useState,useContext} from 'react'
 import {GlobalContext} from '../globalContext/context'
-import {register} from '../actions'
 import {useHistory} from 'react-router-dom'
+import  axiosWithAuth from '../utils/axiosWithAuth'
+import axios from 'axios'
 
 const Signup = ()=>{
 
-    const initialUser = useContext(GlobalContext).state.registerUser
-    console.log(initialUser)
-    const[user,setUser]= useState(initialUser)
     let {push}= useHistory();
+    let {loggedIn,setLoggedIn} = useContext(GlobalContext)
+   
+   
+    const[user,setUser]= useState({
+        name:'',
+        email:'',
+        username:'',
+        password:'',
+    })
+
 
     const handleChanges= e=>{
         e.preventDefault();
         setUser({...user,[e.target.name]:e.target.value})
-        console.log('Sign Up info',user)
+        console.log('Sign Up user info',user)
     
-    }
-     //reset the form
-        // setLoginUser({
-        //     username:'',
-        //     password:''
-        // })
+        }
+
+
+    
         const handleSubmit = e=>{
-            register(user);
-    
-            push('/login')
+            e.preventDefault();
+           
+            axios
+            .post('https://bwpt20-recipes-backend.herokuapp.com/auth/register', user)
+            .then(res=>{
+                localStorage.setItem("token", res.data.token)
+                console.log('res.data in register actions ', res.data)
+                push('/login')
+            })
+            .catch(err=>{
+                console.log(err)
+            })
         }
 
     return(
         <div>
-          
             <h2>Please Sign Up </h2>
-            <form onSubmit={handleSubmit}>
-                {/* <label>Title</label> */} 
-                 <input type='text' name='name' value={user.name} placeholder='Name' onChange={handleChanges}/>
+
+            <form className='form' onSubmit={handleSubmit}>
+                <input type='text' name='name' value={user.name} placeholder='Name' onChange={handleChanges}/>
                 <input type='email' name='email' value={user.email} placeholder='Email' onChange={handleChanges}/>
                 <input type='text' name='username' value={user.username} placeholder='User Name' onChange={handleChanges}/>
                 <input type='password' name='password' value={user.password} placeholder='Password' onChange={handleChanges}/>
-               
                 <button>Sign Up</button>
 
             </form>

@@ -1,6 +1,6 @@
-import {useContext,useReducer} from 'react'
+import React,{useContext,useReducer} from 'react'
 import './App.css';
-import {Route,Link} from 'react-router-dom'
+import {Route,Link,useHistory, useParams} from 'react-router-dom'
 import {Card,CardImg} from 'reactstrap'
 import image from './images/recipe2.jpg'
 
@@ -8,27 +8,43 @@ import image from './images/recipe2.jpg'
 import Recipes from './components/recipes'
 import Signup from './components/signUp'
 import Login from './components/login'
+import SearchForm from './components/search'
+import EditForm from './components/editForm'
 
 // import utilities
-import myReducer from './reducers'
-import {login} from './actions'
+
 import {GlobalContext} from './globalContext/context'
-import {initialState} from './reducers'
 import PrivateRoute from './utils/privateRoute';
+import RecipeCard from './components/recipeCard';
+
+
 
 
 
 function App() {
+  let {push} = useHistory();
 
-  const[state,dispatchState] = useReducer(myReducer,initialState)
+  let {recipes,loggedIn} =useContext(GlobalContext);
+
 
   return (
     <div className="App">
      <div className='navs'>
-     <Link to='/'>Home</Link>
-       <Link to='/login'>Log In</Link>
-       <Link to ='/signUp'>Sign Up</Link>
+    <Link to='/'>Home</Link>
+   
+      {!loggedIn ?  
+      <Link to='/login'>Log In</Link> :
+      <button onClick={()=>{localStorage.setItem('token',''); loggedIn =false; push('/login')}}> Log Out </button> }
+       
+     {!loggedIn ?  
+      <Link to ='/signUp'>Sign Up</Link>: 
+     null} 
+
+
+
+      
        <Link to = '/recipes'>Recipes</Link>
+       <SearchForm />
      </div>
   
   <Route  exact path='/' >
@@ -43,15 +59,16 @@ function App() {
     </Card>
    </Route>
 
-   <GlobalContext.Provider value={{state,dispatchState}}>
+  
      <Route exact path='/login' render={()=><Login/>}/>
-     <Route path='/signup' render={()=><Signup/>}/>
-     <PrivateRoute exact path='/recipes'>
-       <Recipes/>
-      </PrivateRoute>
-    
-   </GlobalContext.Provider>
+     <Route path='/signup' component={Signup}/>
+     <PrivateRoute exact path='/recipes' component = {Recipes}/>
+     <Route path={`/recipes/:id`}> <RecipeCard /></Route>
+     <Route path={'/updateRecipe/:id'}><EditForm /></Route> 
 
+  
+
+ 
     </div>
   );
 }
