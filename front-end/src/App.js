@@ -1,4 +1,4 @@
-import {useContext,useReducer} from 'react'
+import React,{useContext,useReducer} from 'react'
 import './App.css';
 import {Route,Link,useHistory, useParams} from 'react-router-dom'
 import {Card,CardImg} from 'reactstrap'
@@ -9,35 +9,42 @@ import Recipes from './components/recipes'
 import Signup from './components/signUp'
 import Login from './components/login'
 import SearchForm from './components/search'
-import RecipeForm from './components/recipeForm'
+import EditForm from './components/editForm'
 
 // import utilities
-import myReducer from './reducers'
-import {login} from './actions'
+
 import {GlobalContext} from './globalContext/context'
-import {initialState} from './reducers'
 import PrivateRoute from './utils/privateRoute';
 import RecipeCard from './components/recipeCard';
-import { findAllByAltText } from '@testing-library/react';
+
+
 
 
 
 function App() {
-  
+  let {push} = useHistory();
 
-  const[state,dispatch] = useReducer(myReducer,initialState)
-  console.log(state.editing)
+  let {recipes,loggedIn} =useContext(GlobalContext);
 
-let {push} = useHistory();
+
   return (
     <div className="App">
      <div className='navs'>
-     <Link to='/'>Home</Link>
-     {/*If logged in display Logout button otherwise display log in link if not logged in. After Log out clicked route user to log in page*/}
-      {!state.isLoggedIn ? <Link to='/login'>Log In</Link> : <button onClick={()=>{localStorage.setItem('token',''); state.isLoggedIn =false; push('/login')}}> Log Out </button>} 
-      {!state.isLoggedIn ? <Link to ='/signUp'>Sign Up</Link>: null} {/* hide signup button if I am logged in*/}
+    <Link to='/'>Home</Link>
+   
+      {!loggedIn ?  
+      <Link to='/login'>Log In</Link> :
+      <button onClick={()=>{localStorage.setItem('token',''); loggedIn =false; push('/login')}}> Log Out </button> }
+       
+     {!loggedIn ?  
+      <Link to ='/signUp'>Sign Up</Link>: 
+     null} 
+
+
+
+      
        <Link to = '/recipes'>Recipes</Link>
-      <SearchForm recipes={state.recipes}filteredRecipes ={state.filteredRecipes}/>
+       <SearchForm />
      </div>
   
   <Route  exact path='/' >
@@ -52,14 +59,14 @@ let {push} = useHistory();
     </Card>
    </Route>
 
-   <GlobalContext.Provider value={{state,dispatch}}>
+  
      <Route exact path='/login' render={()=><Login/>}/>
-     <Route path='/signup' render={()=><Signup/>}/>
+     <Route path='/signup' component={Signup}/>
      <PrivateRoute exact path='/recipes' component = {Recipes}/>
      <Route path={`/recipes/:id`}> <RecipeCard /></Route>
-     <Route path={'/updateRecipe/:id'}><RecipeForm /></Route>
-     {/* <Route path='/recipes' component={SearchForm}/> */}
-   </GlobalContext.Provider>
+     <Route path={'/updateRecipe/:id'}><EditForm /></Route> 
+
+  
 
  
     </div>

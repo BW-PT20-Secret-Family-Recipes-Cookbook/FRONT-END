@@ -1,23 +1,21 @@
 import React,{useContext,useState,useEffect} from 'react'
 import {Link,Route,useParams,useHistory} from 'react-router-dom'
-import {getRecipes, search} from '../actions'
+
 
 //components
 import RecipeCard from './recipeCard'
-import RecipeForm from './recipeForm'
+import RecipeForm from './addRecipeForm'
 
 import {GlobalContext} from '../globalContext/context'
 
 
 const Recipes = ()=>{
     // let user = {usename:'simo',password:'123546'}
-    let recipes = useContext(GlobalContext).state.recipes;  
-    let searchOn = useContext(GlobalContext).state.searchOn
-    let filtered = useContext(GlobalContext).state.filteredREcipes
-    
+    let {recipes,setRecipes} = useContext(GlobalContext);  
+
   
-    
-    let logging = useContext(GlobalContext).state.isLoggedIn;
+    console.log('recipes in recipes ', recipes)
+
 
     let {push}= useHistory();
     let params = useParams();
@@ -28,14 +26,13 @@ const Recipes = ()=>{
  
  
 
-        console.log('searchOn ',searchOn)
-        console.log('filtered ',filtered)
+ 
 
 
     return(
        
         <div className='recipes-container'>
-             <RecipeForm />
+             <RecipeForm/>
         
             <div className='recipes-list'>
             

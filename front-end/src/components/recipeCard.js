@@ -1,21 +1,33 @@
 import React,{useContext,useEffect,useState} from 'react'
 import {GlobalContext} from '../globalContext/context'
-import {deleteRecipe,editRecipe} from '../actions'
+import axiosWithAuth from '../utils/axiosWithAuth'
+
 import {useParams,useHistory,Route} from 'react-router-dom'
 
 const RecipeCard = ()=>{
-    let state = useContext(GlobalContext).state
+    let {recipes,editing} = useContext(GlobalContext)
     let {push}= useHistory();
     let params = useParams();
   
     console.log('params',params)
 
    //let' find the active card
-   let recipe = state.recipes.find(item=>item.id===Number(params.id));
+   let recipe = recipes.find(item=>item.id===Number(params.id));
 
 
   
+//Delete A RECIPE
+    const deleteRecipe = id=>{
 
+    axiosWithAuth()
+    .delete(`https://bwpt20-recipes-backend.herokuapp.com/recipes/${id}`)
+    .then(res=>{
+
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
    
 
   
@@ -32,7 +44,7 @@ const RecipeCard = ()=>{
                 <p>Category: {recipe.category}</p>
                 <div className='card-buttons'>
                    <button onClick={()=>{deleteRecipe(recipe.id);}}>Delete</button>
-                <button onClick={()=>{{state.editing=true};push(`/updateRecipe/${Number(params.id)}`)}}>Edit</button>
+                <button onClick={()=>{{editing=true};push(`/updateRecipe/${Number(params.id)}`)}}>Edit</button>
                 </div>
                
             </div>

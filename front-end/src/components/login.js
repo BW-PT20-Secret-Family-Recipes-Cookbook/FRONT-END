@@ -1,15 +1,20 @@
 import React,{useContext,useState} from 'react'
-import {login} from '../actions'
 import {useHistory} from 'react-router-dom'
 import {GlobalContext} from '../globalContext/context'
+import  axiosWithAuth from '../utils/axiosWithAuth'
 
 const Login = ()=>{
 let {push} = useHistory();
-// let login = useContext(GlobalContext).login
-let user = useContext(GlobalContext).state.loginUser; //logging user info from reducer
-console.log('login and user ',user)
 
-const[loginUser,setLoginUser] = useState(user);
+
+let {loggedIn,setLoggedIn} = useContext(GlobalContext)
+
+
+
+const[loginUser,setLoginUser] = useState({
+    username:'',
+    password:''
+});
 
 const handleChanges= e=>{
     e.preventDefault();
@@ -25,8 +30,24 @@ const handleChanges= e=>{
     })
  }
     
+    const login = (loginUser)=>{
+
+        axiosWithAuth()
+        .post('https://bwpt20-recipes-backend.herokuapp.com/auth/login', loginUser)
+        .then(res=>{
+            console.log('res.data in login actions ', res.data);
+            localStorage.setItem('token',res.data.token);
+            localStorage.setItem('id',res.data.id); 
+            
+
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
     const handleSubmit = e=>{
-        login(loginUser);
+       login(loginUser);
 
         push('/recipes')
         reset();

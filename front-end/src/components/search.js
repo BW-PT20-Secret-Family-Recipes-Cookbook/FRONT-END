@@ -1,12 +1,13 @@
+import { findAllByAltText } from '@testing-library/react'
 import React,{useState,useContext, useEffect} from 'react'
 import {GlobalContext} from  '../globalContext/context'
-import {search} from '../actions'
 
 
-const SearchForm = (recipes,filteredREcipes)=>{
+
+const SearchForm = ()=>{
 
 
-   console.log('recipes in search',recipes)
+    // let {recipes} = useContext(GlobalContext)
     const[searchTerm,setSearchTerm] = useState('')
     
   
@@ -16,10 +17,19 @@ const SearchForm = (recipes,filteredREcipes)=>{
         console.log('search values  ', searchTerm)
   
     }
-    useEffect(()=>{
 
-        search(searchTerm)
-    },[searchTerm.length>0])
+    // const search = term=>{
+
+    // recipes.map((el)=>{if(el.title.includes(term)){
+    //     return filteredRecipes.push(el)
+    // }})
+   
+    // }
+    // useEffect(()=>{
+
+    //     search(searchTerm)
+
+    // },[searchTerm])
    
 
     return(
