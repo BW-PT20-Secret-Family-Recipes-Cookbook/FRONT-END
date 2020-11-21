@@ -12,17 +12,17 @@ export const initialState = {
     
     recipes:[{
         id:1,
-        title:'hot Pizza',
+        recipe_name:'hot food',
         source:'Grandma Chef',
-        ingredients:'one tea spoon of each the following',
-        instructions:'step by step',
+        // ingredients:'one tea spoon of each the following',
+        // instructions:'step by step',
         category:'spicy food'
     },{
         id:2,
-        title:'vegy Pizza',
+        recipe_name:'vegy Pizza',
         source:'pizza master',
-        ingredients:'little bit of pepper salt and cheese and green paper and black olives ...',
-        instructions:'step one head up your oven to 500 F',
+        // ingredients:'little bit of pepper salt and cheese and green paper and black olives ...',
+        // instructions:'step one head up your oven to 500 F',
         category:'pizza'
     },],
     editing:false,

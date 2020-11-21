@@ -4,53 +4,41 @@ import {GlobalContext} from '../globalContext/context'
 import  axiosWithAuth from '../utils/axiosWithAuth'
 
 const Login = ()=>{
-let {push} = useHistory();
 
+    let {push} = useHistory();
+    let {loggedIn,setLoggedIn} = useContext(GlobalContext)
 
-let {loggedIn,setLoggedIn} = useContext(GlobalContext)
-
-
-
-const[loginUser,setLoginUser] = useState({
-    username:'',
-    password:''
-});
-
-const handleChanges= e=>{
-    e.preventDefault();
-    setLoginUser({...loginUser,[e.target.name]:e.target.value})
-    console.log('log in info',loginUser)
-
-}
- //reset the form
- const reset=()=>{
-    setLoginUser({
+    const[loginUser,setLoginUser] = useState({
         username:'',
         password:''
-    })
- }
-    
-    const login = (loginUser)=>{
+    });
 
-        axiosWithAuth()
-        .post('https://bwpt20-recipes-backend.herokuapp.com/auth/login', loginUser)
-        .then(res=>{
-            console.log('res.data in login actions ', res.data);
-            localStorage.setItem('token',res.data.token);
-            localStorage.setItem('id',res.data.id); 
-            
+    const handleChanges= e=>{
+        e.preventDefault();
+        setLoginUser({...loginUser,[e.target.name]:e.target.value})
+        console.log('log in info',loginUser)
 
-        })
-        .catch(err=>{
-            console.log(err)
-        })
     }
+    console.log('loggedIn status in login',loggedIn)
+    
 
     const handleSubmit = e=>{
-       login(loginUser);
+      e.preventDefault()
+      axiosWithAuth()
+      .post('https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/auth/login', loginUser)
+      .then(res=>{
+          console.log('res.data in login actions ', res.data);
 
-        push('/recipes')
-        reset();
+          localStorage.setItem('token',res.data.token);
+        //   localStorage.setItem('id',res.data.id); 
+        setLoggedIn(true)
+          push('/recipes')
+
+      })
+      .catch(err=>{
+          console.log(err)
+      })
+
     }
 
 

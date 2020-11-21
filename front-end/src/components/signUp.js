@@ -17,6 +17,7 @@ const Signup = ()=>{
         password:'',
     })
 
+    console.log('loggedIn status in signup',loggedIn)
 
     const handleChanges= e=>{
         e.preventDefault();
@@ -31,14 +32,15 @@ const Signup = ()=>{
             e.preventDefault();
            
             axios
-            .post('https://bwpt20-recipes-backend.herokuapp.com/auth/register', user)
+            .post(`https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/auth/register`, user)
             .then(res=>{
-                localStorage.setItem("token", res.data.token)
-                console.log('res.data in register actions ', res.data)
+                console.log('sign up response ',res.data)
+             
+              
                 push('/login')
             })
             .catch(err=>{
-                console.log(err)
+                console.log('somehing wrong the error is ',err.message)
             })
         }
 

@@ -9,12 +9,16 @@ const ContextProvider= ({children})=>{
     const[recipes,setRecipes] = useState(initialState.recipes)
     const[filteredRecipes,setFilteredRecipes] = useState([])
 
-    const[loggedIn,setLoggedIn] = useState(false)
+    const[loggedIn,setLoggedIn] = useState(localStorage.getItem('token')? true:false)
     const[editing,setEditing] = useState(false)
+    const[searchOn,setSearchOn] = useState(false)
 
     return (
-        <GlobalContext.Provider value={{recipes,setRecipes,loggedIn,setLoggedIn,filteredRecipes,editing}}>
+        <GlobalContext.Provider value={{recipes,setRecipes,loggedIn,setLoggedIn,
+        filteredRecipes,setFilteredRecipes,editing,setEditing,searchOn,setSearchOn}}>
+
             {children}
+
         </GlobalContext.Provider>
     )
 } 

@@ -1,12 +1,14 @@
 .App {
   /* border:solid green; */
-  margin: 0 2.5%;
+  margin: 1% 2.5%;
   padding: 1% 2.5%;
+  background: #ebe6e6;
 }
 
 .card-home {
   display: flex;
   justify-content: space-between;
+  padding-top: 5%;
   /* flex-direction: row !important; */
 }
 .card-home div {width:50%}
@@ -23,9 +25,14 @@
 }
 .navs a {
   padding: 1% 2%;
-  color: white;
+  color: rgb(131, 120, 120);
   text-decoration: none;
-
+  width:20%;
+  text-align: center;
+}
+#search-input{
+  font-size:1.1rem;
+  background: rgb(234, 236, 224);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -65,6 +72,12 @@
   padding: 1%;
   border-radius : 10px
 }
+.recipe-card a {
+  text-decoration: none;
+}
+.recipe-card:hover,.navs a:hover {
+  background: rgba(136, 130, 136, 0.667);
+}
 .recipes-list{
 
   display: flex;
@@ -79,12 +92,28 @@
   font-size:1.2rem
 }
 .form button {
-  width: 30%;
-  padding: 1.5%;
+  width: 50%;
+  padding: 1.2%;
   margin: 1% 25%;
-font-size: 1.3rem;
+font-size: 1.2rem;
 }
 .form input{
   height: 4vh;
   margin: 1% 0;
+}
+.add-form,.edit-form{
+  text-align:center
+}
+.edit-buttons {
+display: flex;
+width: 100%;
+
+}
+.edit-buttons button {
+  width:90%;
+  margin:1%
+}
+.rights {
+  text-align: center;
+  margin: 2% 0
 }

@@ -2,57 +2,43 @@ import React,{useContext, useEffect, useState} from 'react'
 import { useParams,useHistory } from 'react-router-dom'
 import {GlobalContext} from '../globalContext/context'
 import axiosWithAuth from '../utils/axiosWithAuth'
+import Recipes from './recipes'
+import axios from 'axios'
 
 const EditForm = ()=>{
 
     let {push} =useHistory();
-    let {editing} = useContext(GlobalContext)
+    let {editing,setRecipes,recipes} = useContext(GlobalContext)
 
     const[recipe,setRecipe] = useState({  
-        title:'',
+        recipe_name:'',
         source:'',
-        ingredients:'',
-        instructions:'',
+        // ingredients:'',
+        // instructions:'',
         category:''
     })
     let params = useParams();
-    console.log('params in form ',params)
+    console.log('params in edit form ',params)
 
-    // useEffect(()=>{
-    //     setRecipe(recipes.find(item=>item.id===Number(params.id)))
+    useEffect(()=>{
+        setRecipe(recipes.find(item=>item.id===Number(params.id)))
         
-    //   },[])
+      },[])
 
     const handleChanges = e=>{
 
        setRecipe({...recipe,[e.target.name]:e.target.value})
     }
 
- //adding recipe
- const addRecipe = (recipe)=>{
-    
-    //     console.log('recipe add in action')
-    //     let newV = {recipe,id:Date.now()}
-        // dispatch({type: ADD_RECIPE,payload:recipe})
-        
-        axiosWithAuth()
-        .post(`https://bwpt20-recipes-backend.herokuapp.com/recipes/`,recipe)
-        .then(res=>{
-            console.log('res.data in add recipe ',res.data)
-          
-    
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-    }
-//Edit a recipe
-const editRecipe = id=>{
-        
-    axiosWithAuth()
-    .put(`https://bwpt20-recipes-backend.herokuapp.com/recipes/${id}`)
+    //Save changes recipe
+    const saveRecipe =()=>{
+       
+    axios
+    .put(`https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes/:${params.id}`)
     .then(res=>{
-        
+
+        console.log('updated data',res.data)
+        push(`/recipes/${params.id}`)
     })
     .catch(err=>{
         console.log(err)
@@ -65,20 +51,22 @@ const editRecipe = id=>{
   
 
     return(
-        <div>
+        <div className='edit-form'>
             <h2>Add new recipe</h2>
             <form className='form'>
                 {/* <label>Title</label> */}
-                <input type='text' name='title' value={recipe.title} placeholder='Title' onChange={handleChanges}/>
+                <input type='text' name='recipe_name' value={recipe.recipe_name} placeholder='Title' onChange={handleChanges}/>
                 <input type='text' name='source' value={recipe.source} placeholder='Source' onChange={handleChanges}/>
-                <input type='text' name='ingredients' value={recipe.ingredients} placeholder='Ingredients' onChange={handleChanges}/>
-                <input type='text' name='instructions' value={recipe.instructions} placeholder='Instructions' onChange={handleChanges}/>
+                {/* <input type='text' name='ingredients' value={recipe.ingredients} placeholder='Ingredients' onChange={handleChanges}/> */}
+                {/* <input type='text' name='instructions' value={recipe.instructions} placeholder='Instructions' onChange={handleChanges}/> */}
                 <input type='text' name='category' value={recipe.category} placeholder='Category' onChange={handleChanges}/>
-
-                {!editing ? <button onClick={(e)=>{ e.preventDefault();addRecipe(recipe);console.log(recipe,' added')}}>Add Recipe</button> :
-                <div> <button onClick={()=>{editRecipe();push(`/recipes/${params.id}`)}}>Save</button> 
+                <div className='edit-buttons'>
+                    
+                 <button onClick={()=>{saveRecipe();push(`/recipes/${params.id}`)}}>Save</button> 
                 <button onClick={()=>{editing=false;push('/recipes')}}>Cancel</button>
-                </div>}
+               
+                
+                </div>
 
             </form>
 
