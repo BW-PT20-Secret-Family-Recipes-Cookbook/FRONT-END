@@ -55,7 +55,7 @@ function App() {
     <Card className='card-home'>
       <CardImg src={image} alt='' width='350vw' height='300vh'/>
       <div>
-      <h2>About our app</h2>
+      <h3>All Recipes are under radar with one touch</h3>
       <p>Welcome to my grandma secret recipies. Now you will have the full control on your recipies.
          You can access your recipies from anywhere securely. You will be able to add, update and delete your recipies.</p>
       </div>
