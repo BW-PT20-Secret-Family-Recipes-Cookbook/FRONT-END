@@ -7,33 +7,38 @@ import {GlobalContext} from  '../globalContext/context'
 const SearchForm = ()=>{
 
 
-    // let {recipes} = useContext(GlobalContext)
+  let {recipes,setFilteredRecipes,setSearchOn} = useContext(GlobalContext)
     const[searchTerm,setSearchTerm] = useState('')
     
   
     const handleChanges = e=>{
         e.preventDefault();
         setSearchTerm(e.target.value)
-        console.log('search values  ', searchTerm)
+      
   
     }
 
-    // const search = term=>{
 
-    // recipes.map((el)=>{if(el.title.includes(term)){
-    //     return filteredRecipes.push(el)
-    // }})
-   
-    // }
-    // useEffect(()=>{
+    useEffect(()=>{
 
-    //     search(searchTerm)
+        if(searchTerm.length>0){ //set search On once I start typing
+            // search recipes based on title or category
+            setFilteredRecipes(recipes.filter(el=>(el.recipe_name.includes(searchTerm) || el.category.includes(searchTerm))))
+            setSearchOn(true)
+        }
+        else{
+            //if search input is emty set the filtered data in empty []
+            // reset search mode to off
+            setSearchOn(false)
+            setFilteredRecipes([])
+        }
+        
 
-    // },[searchTerm])
+    },[searchTerm])
    
 
     return(
-        <form>
+        <form >
              <input id='search-input' type='text' name='search' placeholder='Search Recipes' onChange={handleChanges} value={searchTerm}/>
         </form>
     )

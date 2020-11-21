@@ -24,7 +24,9 @@ import RecipeCard from './components/recipeCard';
 function App() {
   let {push} = useHistory();
 
-  let {recipes,loggedIn} =useContext(GlobalContext);
+  let {recipes,loggedIn,filteredRecipes,setFilteredRecipes,searchOn,setSearchOn} =useContext(GlobalContext);
+
+  console.log('filtred data in app ', filteredRecipes)
 
 
   return (
@@ -32,13 +34,15 @@ function App() {
      <div className='navs'>
     <Link to='/'>Home</Link>
    
-      {!loggedIn ?  
-      <Link to='/login'>Log In</Link> :
-      <button onClick={()=>{localStorage.setItem('token',''); loggedIn =false; push('/login')}}> Log Out </button> }
+      {loggedIn ?  
+      <Link className='logout-button' onClick={()=>{localStorage.removeItem('token'); loggedIn =false; push('/login')}}> Log Out </Link>:
+      <Link to='/login'>Log In</Link>
+      
+       }
        
      {!loggedIn ?  
-      <Link to ='/signUp'>Sign Up</Link>: 
-     null} 
+     <Link to ='/signUp'>Sign Up</Link> : 
+     null}  
 
 
 
@@ -67,7 +71,7 @@ function App() {
      <Route path={'/updateRecipe/:id'}><EditForm /></Route> 
 
   
-
+      <p className='rights'>Kitchen Secret Familly Recipes Coockbook @WBPT20,2020</p>
  
     </div>
   );

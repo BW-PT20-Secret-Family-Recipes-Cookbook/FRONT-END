@@ -1,11 +1,11 @@
 import React,{useContext, useEffect, useState} from 'react'
 import { useParams,useHistory } from 'react-router-dom'
 import axiosWithAuth from '../utils/axiosWithAuth'
-
 import {GlobalContext} from '../globalContext/context'
 
-const RecipeForm = ()=>{
 
+
+const RecipeForm = ()=>{
 
     let {push} =useHistory();
     let {recipes,editing,setRecipes} = useContext(GlobalContext)
@@ -15,10 +15,10 @@ const RecipeForm = ()=>{
 
     const[recipe,setRecipe,setEditing] = useState(
         {  
-        title:'',
+        recipe_name:'',
         source:'',
-        ingredients:'',
-        instructions:'',
+        // ingredients:'',
+        // instructions:'',
         category:''
     })
 
@@ -43,10 +43,10 @@ const RecipeForm = ()=>{
         // dispatch({type: ADD_RECIPE,payload:recipe})
         
         axiosWithAuth()
-        .post(`https://bwpt20-recipes-backend.herokuapp.com/recipes/`,recipe)
+        .post(`https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes/`,recipe)
         .then(res=>{
             console.log('res.data in add recipe ',res.data)
-            setRecipes(...recipes,res.data)
+           push('/recipes')
           
     
         })
@@ -54,40 +54,22 @@ const RecipeForm = ()=>{
             console.log(err)
         })
     }
-    
-
-    //Save  changes
-        const saveRecipe = id=>{
-        
-        axiosWithAuth()
-        .put(`https://bwpt20-recipes-backend.herokuapp.com/recipes/${id}`)
-        .then(res=>{
-
-            setEditing(true)
-            
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-    }
-
+   
   
     return(
-        <div>
+        <div className='add-form'>
             <h2>Add new recipe</h2>
             <form className='form'>
                 {/* <label>Title</label> */}
-                <input type='text' name='title' value={recipe.title} placeholder='Title' onChange={handleChanges}/>
+                <input type='text' name='recipe_name' value={recipe.recipe_name} placeholder='Title' onChange={handleChanges}/>
                 <input type='text' name='source' value={recipe.source} placeholder='Source' onChange={handleChanges}/>
-                <input type='text' name='ingredients' value={recipe.ingredients} placeholder='Ingredients' onChange={handleChanges}/>
-                <input type='text' name='instructions' value={recipe.instructions} placeholder='Instructions' onChange={handleChanges}/>
+                {/* <input type='text' name='ingredients' value={recipe.ingredients} placeholder='Ingredients' onChange={handleChanges}/> */}
+                {/* <input type='text' name='instructions' value={recipe.instructions} placeholder='Instructions' onChange={handleChanges}/> */}
                 <input type='text' name='category' value={recipe.category} placeholder='Category' onChange={handleChanges}/>
 
-                {!editing ? <button onClick={(e)=>{ e.preventDefault();addRecipe(recipe);console.log('New Recipe added in form ',recipe,
-                 'and new recipes ',recipes)}}>Add Recipe</button> :
-                <div> <button onClick={()=>{editing=false;saveRecipe()}}>Save</button> 
-                <button onClick={()=>{editing=false;push('/recipes')}}>Cancel</button>
-                </div>}
+               <button onClick={(e)=>{ e.preventDefault();addRecipe(recipe);console.log('New Recipe added in form ',recipe,
+                 'and new recipes ',recipes)}}>Add Recipe</button> 
+                
 
             </form>
 
