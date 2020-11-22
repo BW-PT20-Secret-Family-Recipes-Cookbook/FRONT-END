@@ -31,7 +31,7 @@ useEffect(()=>{
     .catch(err=>{
         console.log(err)
     })
-},[setRecipes])
+},[])
 
  
 //   console.log('searchOn',searchOn)
