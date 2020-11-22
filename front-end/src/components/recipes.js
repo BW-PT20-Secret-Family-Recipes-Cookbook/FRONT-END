@@ -21,17 +21,17 @@ const Recipes = ()=>{
 //    let activeCard = recipes.find(item=>item.id===id.id)
 
 
-// useEffect(()=>{
-//     axios
-//     .get('https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes')
-//     .then(res=>{
-//         // console.log('recipes fetched from server ', res.data)
-//         setRecipes(res.data)
-//     })
-//     .catch(err=>{
-//         console.log(err)
-//     })
-// },[])
+useEffect(()=>{
+    axios
+    .get('https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes')
+    .then(res=>{
+        // console.log('recipes fetched from server ', res.data)
+        setRecipes(res.data)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+},[setRecipes])
 
  
 //   console.log('searchOn',searchOn)

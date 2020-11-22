@@ -43,6 +43,16 @@ const RecipeForm = ()=>{
        
        setRecipe({...recipe,[e.target.name]:e.target.value})
     }
+    const reset= ()=>{
+        setRecipe(
+            {  
+            recipe_name:'',
+            source:'',
+            // ingredients:'',
+            // instructions:'',
+            category:''
+        })
+    }
 
 
     //adding recipe
@@ -56,7 +66,7 @@ const RecipeForm = ()=>{
         .post(`https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes/`,recipe)
         .then(res=>{
             console.log('res.data in add recipe ',res.data)
-            getRecipes();
+           reset();
 
            push('/recipes')
           
