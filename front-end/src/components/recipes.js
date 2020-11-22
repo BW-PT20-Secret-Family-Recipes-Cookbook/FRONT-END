@@ -12,32 +12,29 @@ import axiosWithAuth from '../utils/axiosWithAuth'
 
 
 const Recipes = ()=>{
-    // let user = {usename:'simo',password:'123546'}
+
     let {recipes,setRecipes,searchOn,filteredRecipes} = useContext(GlobalContext);  
-
-  
-    console.log('recipes in recipes ', recipes)
-
-
-    let {push}= useHistory();
-    let params = useParams();
+    // let {push}= useHistory();
+    // let params = useParams();
 
    //let' find the active card
 //    let activeCard = recipes.find(item=>item.id===id.id)
-useEffect(()=>{
-    axios
-    .get('https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes')
-    .then(res=>{
-        console.log('recipes fetched from server ', res.data)
-        setRecipes(res.data)
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-},[])
+
+
+// useEffect(()=>{
+//     axios
+//     .get('https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes')
+//     .then(res=>{
+//         // console.log('recipes fetched from server ', res.data)
+//         setRecipes(res.data)
+//     })
+//     .catch(err=>{
+//         console.log(err)
+//     })
+// },[])
 
  
-  console.log('searchOn',searchOn)
+//   console.log('searchOn',searchOn)
 
  
 

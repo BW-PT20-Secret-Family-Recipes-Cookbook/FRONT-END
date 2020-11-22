@@ -32,16 +32,17 @@ const EditForm = ()=>{
 
     //Save changes recipe
     const saveRecipe =()=>{
-       
+        console.log('recipe is updated before axios call ',recipe )
+
     axios
-    .put(`https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes/:${params.id}`)
+        .put(`https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes/${params.id}`)
     .then(res=>{
 
         console.log('updated data',res.data)
         push(`/recipes/${params.id}`)
     })
     .catch(err=>{
-        console.log(err)
+        console.log('recipe unsuccessfully updated with error ',err.message)
     })
 }
        
@@ -62,7 +63,7 @@ const EditForm = ()=>{
                 <input type='text' name='category' value={recipe.category} placeholder='Category' onChange={handleChanges}/>
                 <div className='edit-buttons'>
                     
-                 <button onClick={()=>{saveRecipe();push(`/recipes/${params.id}`)}}>Save</button> 
+                 <button onClick={(e)=>{e.preventDefault();saveRecipe()}}>Save</button> 
                 <button onClick={()=>{editing=false;push('/recipes')}}>Cancel</button>
                
                 

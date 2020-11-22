@@ -23,7 +23,8 @@ const SearchForm = ()=>{
 
         if(searchTerm.length>0){ //set search On once I start typing
             // search recipes based on title or category
-            setFilteredRecipes(recipes.filter(el=>(el.recipe_name.includes(searchTerm) || el.category.includes(searchTerm))))
+            setFilteredRecipes(recipes.filter(el=>(el.recipe_name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            el.category.toLowerCase().includes(searchTerm.toLowerCase()))))
             setSearchOn(true)
         }
         else{

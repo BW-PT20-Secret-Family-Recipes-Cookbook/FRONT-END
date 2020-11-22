@@ -2,6 +2,7 @@ import React,{useContext, useEffect, useState} from 'react'
 import { useParams,useHistory } from 'react-router-dom'
 import axiosWithAuth from '../utils/axiosWithAuth'
 import {GlobalContext} from '../globalContext/context'
+import axios from 'axios'
 
 
 
@@ -24,13 +25,22 @@ const RecipeForm = ()=>{
 
     // console.log('params in form ',params)
     // console.log('status of editing ',state.editing)
+    const getRecipes = ()=>{
+        axios
+        .get('https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes')
+        .then(res=>{
+            setRecipes(res.data)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
    
 
  
 
     const handleChanges = e=>{
-        // let newVal= {[e.target.name]:e.target.value,id:Date.now()}
-
+       
        setRecipe({...recipe,[e.target.name]:e.target.value})
     }
 
@@ -46,6 +56,8 @@ const RecipeForm = ()=>{
         .post(`https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes/`,recipe)
         .then(res=>{
             console.log('res.data in add recipe ',res.data)
+            getRecipes();
+
            push('/recipes')
           
     
