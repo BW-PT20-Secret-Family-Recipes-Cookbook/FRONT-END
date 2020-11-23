@@ -36,7 +36,12 @@ const Login = ()=>{
 
       })
       .catch(err=>{
+          if(err.message.includes(401)){
+            console.log('This account does not exist  and error code is ' ,err)
+          }
+          else
           console.log(err)
+         
       })
 
     }
