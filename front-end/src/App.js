@@ -10,6 +10,7 @@ import Signup from './components/signUp'
 import Login from './components/login'
 import SearchForm from './components/search'
 import EditForm from './components/editForm'
+import Navs from './components/navs'
 
 // import utilities
 
@@ -31,7 +32,8 @@ function App() {
 
   return (
     <div className="App">
-     <div className='navs'>
+      <Navs/>
+     {/* <div className='navs'>
     <Link to='/'>Home</Link>
    
       {loggedIn ?  
@@ -49,7 +51,7 @@ function App() {
       
        <Link to = '/recipes'>Recipes</Link>
        <SearchForm />
-     </div>
+     </div> */}
   
   <Route  exact path='/' >
     <Card className='card-home'>
