@@ -2,6 +2,10 @@ import React,{useContext, useEffect, useState} from 'react'
 import { useParams,useHistory } from 'react-router-dom'
 import axiosWithAuth from '../utils/axiosWithAuth'
 import {GlobalContext} from '../globalContext/context'
+<<<<<<< HEAD
+=======
+import axios from 'axios'
+>>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
 
 
 
@@ -24,15 +28,44 @@ const RecipeForm = ()=>{
 
     // console.log('params in form ',params)
     // console.log('status of editing ',state.editing)
+<<<<<<< HEAD
+=======
+    const getRecipes = ()=>{
+        axios
+        .get('https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes')
+        .then(res=>{
+            setRecipes(res.data)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+>>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
    
 
  
 
     const handleChanges = e=>{
+<<<<<<< HEAD
         // let newVal= {[e.target.name]:e.target.value,id:Date.now()}
 
        setRecipe({...recipe,[e.target.name]:e.target.value})
     }
+=======
+       
+       setRecipe({...recipe,[e.target.name]:e.target.value})
+    }
+    const reset= ()=>{
+        setRecipe(
+            {  
+            recipe_name:'',
+            source:'',
+            // ingredients:'',
+            // instructions:'',
+            category:''
+        })
+    }
+>>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
 
 
     //adding recipe
@@ -46,6 +79,12 @@ const RecipeForm = ()=>{
         .post(`https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes/`,recipe)
         .then(res=>{
             console.log('res.data in add recipe ',res.data)
+<<<<<<< HEAD
+=======
+            getRecipes();
+           reset();
+
+>>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
            push('/recipes')
           
     
