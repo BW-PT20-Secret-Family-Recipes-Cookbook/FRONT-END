@@ -32,17 +32,27 @@ const EditForm = ()=>{
 
     //Save changes recipe
     const saveRecipe =()=>{
+<<<<<<< HEAD
+       
+    axios
+    .put(`https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes/:${params.id}`)
+=======
         console.log('recipe is updated before axios call ',recipe )
 
     axios
         .put(`https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes/${params.id}`)
+>>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
     .then(res=>{
 
         console.log('updated data',res.data)
         push(`/recipes/${params.id}`)
     })
     .catch(err=>{
+<<<<<<< HEAD
+        console.log(err)
+=======
         console.log('recipe unsuccessfully updated with error ',err.message)
+>>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
     })
 }
        
@@ -63,7 +73,11 @@ const EditForm = ()=>{
                 <input type='text' name='category' value={recipe.category} placeholder='Category' onChange={handleChanges}/>
                 <div className='edit-buttons'>
                     
+<<<<<<< HEAD
+                 <button onClick={()=>{saveRecipe();push(`/recipes/${params.id}`)}}>Save</button> 
+=======
                  <button onClick={(e)=>{e.preventDefault();saveRecipe()}}>Save</button> 
+>>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
                 <button onClick={()=>{editing=false;push('/recipes')}}>Cancel</button>
                
                 

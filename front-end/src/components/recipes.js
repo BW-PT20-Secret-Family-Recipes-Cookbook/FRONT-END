@@ -12,6 +12,20 @@ import axiosWithAuth from '../utils/axiosWithAuth'
 
 
 const Recipes = ()=>{
+<<<<<<< HEAD
+    // let user = {usename:'simo',password:'123546'}
+    let {recipes,setRecipes,searchOn,filteredRecipes} = useContext(GlobalContext);  
+
+  
+    console.log('recipes in recipes ', recipes)
+
+
+    let {push}= useHistory();
+    let params = useParams();
+
+   //let' find the active card
+//    let activeCard = recipes.find(item=>item.id===id.id)
+=======
 
     let {recipes,setRecipes,searchOn,filteredRecipes} = useContext(GlobalContext);  
     // let {push}= useHistory();
@@ -21,11 +35,16 @@ const Recipes = ()=>{
 //    let activeCard = recipes.find(item=>item.id===id.id)
 
 
+>>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
 useEffect(()=>{
     axios
     .get('https://cors-anywhere.herokuapp.com/https://bwpt20-recipes-backend.herokuapp.com/recipes')
     .then(res=>{
+<<<<<<< HEAD
+        console.log('recipes fetched from server ', res.data)
+=======
         // console.log('recipes fetched from server ', res.data)
+>>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
         setRecipes(res.data)
     })
     .catch(err=>{
@@ -34,7 +53,11 @@ useEffect(()=>{
 },[])
 
  
+<<<<<<< HEAD
+  console.log('searchOn',searchOn)
+=======
 //   console.log('searchOn',searchOn)
+>>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
 
  
 
