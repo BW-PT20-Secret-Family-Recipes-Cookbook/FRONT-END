@@ -1,42 +1,4 @@
-<<<<<<< HEAD
-=======
-/* media query styles for 700px  */
-@media (max-width:700px){
-  .card-home{
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin: 0% 10%;
-    
-  }
-  .navs #search-input{width:70%;font-size: 0.9rem}
-  .navs a {font-size:1rem}
-  .card-home div {padding:2%;margin:1%;width:80%}
-  .card-home img { width:80%} 
-  .form {width: 50%;margin: 1% 20%}
-  .form input {width: 100%} 
 
-  
-}
-
-@media (max-width:800px){
-
-  .card-home div {padding:2%;margin:1%}
-  .form {width: 50%;margin: 1% 20%}
-  .form input {width: 100%} 
-}
-@media (max-width:550px){
-  .navs {display: flex;
-  flex-direction: column;
-align-content: center;}
-  .navs a {width:100%;text-align:center;border-top:1px solid #cfc6c6}
-  .navs #search-input {width:100%;border-top:1px solid #ededed}
-  .recipes-list {display: flex; flex-wrap: wrap;}
-  .recipes-list .recipe-card {width:80%;margin: 1% 5%;padding: 1% 5%}
-  
-}
-
->>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
 .App {
   /* border:solid green; */
   margin: 1% 2.5%;
@@ -48,19 +10,12 @@ align-content: center;}
   display: flex;
   justify-content: space-between;
   padding-top: 5%;
-<<<<<<< HEAD
-  /* flex-direction: row !important; */
-}
-.card-home div {width:50%}
-
-=======
 
 }
 .card-home div {width:50%}
 
 
 
->>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
 .navs {
  
   display: flex;
@@ -83,15 +38,6 @@ align-content: center;}
   background: rgb(234, 236, 224);
 }
 
-<<<<<<< HEAD
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-=======
-
->>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
 
 .App-header {
   background-color: #282c34;
@@ -168,8 +114,6 @@ width: 100%;
 .rights {
   text-align: center;
   margin: 2% 0
-<<<<<<< HEAD
-=======
 }
 
 /* media query styles for 700px  */
@@ -206,5 +150,4 @@ align-content: center;}
   .recipes-list {display: flex; flex-wrap: wrap;}
   .recipes-list .recipe-card {width:80%;margin: 1% 5%;padding: 1% 5%}
   
->>>>>>> 792ebee403e52688eedefc1175c5bbf56433ef7b
 }
